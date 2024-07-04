@@ -66,13 +66,32 @@ public record LoanApplication(int LoanAmount, int AssetValue, int CreditScore) :
 public class LendingDecider {
     public LoanDecision Decide(LoanApplication application) {
         var ltv = application.LoanAmount / application.AssetValue * 100;
+        var decision = false;
         //boundary conditions
         if (application.LoanAmount < 1500000 && application.AssetValue < 1500000 && application.CreditScore < 1000) {
-            return new LoanDecision(application.LoanAmount, application.AssetValue, application.CreditScore, false, ltv);
+            return new LoanDecision(application.LoanAmount, application.AssetValue, application.CreditScore, decision, ltv);
         }
 
+        if (application.LoanAmount > 1000000) {
+            decision = ltv <= 60 && application.CreditScore >= 950;
+            return new LoanDecision(application.LoanAmount, application.AssetValue, application.CreditScore, decision, ltv);
+        }
+
+        switch (ltv) {
+            case < 60:
+                decision = application.CreditScore >= 750;
+                break;
+            case < 80:
+                decision = application.CreditScore >= 800;
+                break;
+            case < 90:
+                decision = application.CreditScore >= 900;
+                break;
+            default:
+                decision = false;
+                break;
+            }        
         
-        
-        return new LoanDecision(application.LoanAmount, application.AssetValue, application.CreditScore, false, ltv);
+        return new LoanDecision(application.LoanAmount, application.AssetValue, application.CreditScore, decision, ltv);
     }
 }
