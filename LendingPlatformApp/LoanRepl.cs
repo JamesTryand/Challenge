@@ -1,14 +1,27 @@
 public class LoanRepl {
 
+    // System State
     private IReadModel[] readModels;
+    private LendingDecider decider;
 
-    public void Setup() {
+    // Temporary (mutable) State
+    private LoanApplication currentLoanApplication;
+    private LoanDecision currentLoanDecision;
+
+    public LoanRepl()
+    {
+        readModels = new IReadModel[] {  };
+        decider = new LendingDecider();
     }
 
     public void Read() {
     }
 
     public void Eval() {
+        currentLoanDecision = decider.Decide(currentLoanApplication);
+        foreach (var readModel in readModels) {
+            readModel.Update(currentLoanDecision);
+        }
     }
 
     public void Print() {
@@ -16,8 +29,10 @@ public class LoanRepl {
         Console.WriteLine("=====================");
         foreach (var readModel in readModels) {
             Console.WriteLine(readModel.ToString());
+            Console.WriteLine();
         }
-
+        Console.WriteLine();
+        Console.WriteLine();
     }
 
     public void Start() {
@@ -34,5 +49,14 @@ public interface IReadModel {
 }
 
 public interface Event {}
+public interface Command {}
 
 public class LoanDecision : Event {}
+
+public class LoanApplication : Command {}
+
+public class LendingDecider {
+    public LoanDecision Decide(LoanApplication application) {
+        return new LoanDecision();
+    }
+}

@@ -17,3 +17,8 @@ time is of the essence.
 * small metrics classes for reporting
 * tests over the decision
 * if time tests over the metrics
+
+
+Event & Command are simply there to indicate structure
+
+Initially build up the structure and workflow
