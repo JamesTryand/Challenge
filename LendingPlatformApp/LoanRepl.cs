@@ -56,6 +56,38 @@ public interface IReadModel {
     void Update(LoanDecision e);
 }
 
+public class LatestDecisionResult : IReadModel {
+    private LoanDecision latestDecision;
+    public void Update(LoanDecision e) {
+        latestDecision = e;
+    }
+
+    public override string ToString() {
+        return $"Loan Application Was Successful: {latestDecision.Decision}\n";
+    }
+}
+public class TotalApplicationsToDateBySuccess : IReadModel {
+    int successfulApplications = 0;
+    int totalApplications = 0;
+    public void Update(LoanDecision e) {
+        totalApplications++;
+        if (e.Decision) {
+            successfulApplications++;
+        }
+    }
+
+
+}
+
+public class TotalValueOfLoansWrittenToDate : IReadModel {
+
+}
+
+public class MeanAverageLoanToValueOfAllLoans : IReadModel {
+
+}
+
+
 public interface Event {}
 public interface Command {}
 
