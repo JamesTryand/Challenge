@@ -13,4 +13,15 @@ public class LoanDecisionTests
         Assert.False(result.Decision);
 
     }
+
+    [Theory]
+    [InlineData(1000, 10000, 700, false)]
+    public void Application_ShouldReturnCorrectDecision(int loanAmount, int assetValue, int creditScore, bool expected)
+    {
+        var LoanApplication = new LoanApplication(loanAmount, assetValue, creditScore);
+        var decider = new LendingDecider();
+        var result = decider.Decide(LoanApplication);
+
+        Assert.Equal(expected, result.Decision);
+    }
 }
