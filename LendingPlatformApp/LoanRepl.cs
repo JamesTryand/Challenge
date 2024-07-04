@@ -15,7 +15,13 @@ public class LoanRepl {
     }
 
     public void Read() {
-
+        Console.WriteLine("Enter Loan Amount: ");
+        var loanAmount = int.Parse(Console.ReadLine());
+        Console.WriteLine("Enter Asset Value: ");
+        var assetValue = int.Parse(Console.ReadLine());
+        Console.WriteLine("Enter Credit Score: ");
+        var creditScore = int.Parse(Console.ReadLine());
+        currentLoanApplication = new LoanApplication(loanAmount, assetValue, creditScore);
         
     }
 
@@ -53,7 +59,7 @@ public interface IReadModel {
 public interface Event {}
 public interface Command {}
 
-public class LoanDecision(int LoanAmount, int AssetValue, int CreditScore, bool Decision, decimal LoanToValue) : Event {}
+public record LoanDecision(int LoanAmount, int AssetValue, int CreditScore, bool Decision, decimal LoanToValue) : Event {}
 
 public record LoanApplication(int LoanAmount, int AssetValue, int CreditScore) : Command;
 

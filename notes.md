@@ -22,3 +22,13 @@ time is of the essence.
 Event & Command are simply there to indicate structure
 
 Initially build up the structure and workflow
+
+This only needs one command - LoanApplication 
+and one event - LoanDecision
+
+The LendingDecider is the class that does the heavy lifting here.
+
+The readmodels are used for metrics, and just override tostring to see their value, and and update method that takes the appropriate event 
+
+technically - it would probably be nicer to do 
+Print(Eval(Read())) - but instead i'll just use mutable state and have them seperate
