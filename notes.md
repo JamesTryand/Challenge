@@ -8,3 +8,12 @@ skeleton test harness works ``` dotnet test .\challenge.sln```
 
 skeleton console app runs successfully ```dotnet run --project .\LendingPlatformApp\LendingPlatformApp.csproj```
 
+now for the design... 
+
+time is of the essence. 
+
+* a simple repl for the app.
+* a load decision class
+* small metrics classes for reporting
+* tests over the decision
+* if time tests over the metrics
