@@ -15,6 +15,8 @@ public class LoanRepl {
     }
 
     public void Read() {
+
+        
     }
 
     public void Eval() {
@@ -51,12 +53,12 @@ public interface IReadModel {
 public interface Event {}
 public interface Command {}
 
-public class LoanDecision : Event {}
+public class LoanDecision(int LoanAmount, int AssetValue, int CreditScore, bool Decision, decimal LoanToValue) : Event {}
 
-public class LoanApplication : Command {}
+public record LoanApplication(int LoanAmount, int AssetValue, int CreditScore) : Command;
 
 public class LendingDecider {
     public LoanDecision Decide(LoanApplication application) {
-        return new LoanDecision();
+        throw new NotImplementedException();
     }
 }
