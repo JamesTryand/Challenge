@@ -65,6 +65,6 @@ public record LoanApplication(int LoanAmount, int AssetValue, int CreditScore) :
 
 public class LendingDecider {
     public LoanDecision Decide(LoanApplication application) {
-        throw new NotImplementedException();
+        return new LoanDecision(application.LoanAmount, application.AssetValue, application.CreditScore, true, 0);
     }
 }
