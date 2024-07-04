@@ -10,7 +10,12 @@ public class LoanRepl {
 
     public LoanRepl()
     {
-        readModels = new IReadModel[] {  };
+        readModels = new IReadModel[] {  
+            new LatestDecisionResult(),
+            new TotalApplicationsToDateBySuccess(),
+            new TotalValueOfLoansWrittenToDate(),
+            new MeanAverageLoanToValueOfAllLoans()
+        };
         decider = new LendingDecider();
     }
 
@@ -75,16 +80,35 @@ public class TotalApplicationsToDateBySuccess : IReadModel {
             successfulApplications++;
         }
     }
-
-
+    public override string ToString() {
+        return $"Total Applications: {totalApplications}\nSuccessful Applications: {successfulApplications}\nUnsuccessful Applications: {totalApplications - successfulApplications}";
+    }
 }
 
 public class TotalValueOfLoansWrittenToDate : IReadModel {
+    decimal totalValue = 0;
+    public void Update(LoanDecision e) {
+        if (e.Decision) {
+            totalValue += e.LoanAmount;
+        }
+    }
 
+    public override string ToString() {
+        return $"Total Value of Loans Written to Date: {totalValue}";
+    }
 }
 
 public class MeanAverageLoanToValueOfAllLoans : IReadModel {
+    decimal totalLtv = 0;
+    int totalApplications = 0;
+    public void Update(LoanDecision e) {
+        totalLtv += e.LoanToValue;
+        totalApplications++;
+    }
 
+    public override string ToString() {
+        return $"Mean Average Loan to Value of All Loans: {totalLtv / totalApplications}";
+    }
 }
 
 
