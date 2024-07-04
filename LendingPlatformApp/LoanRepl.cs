@@ -38,6 +38,8 @@ public class LoanRepl {
     }
 
     public void Print() {
+        Console.WriteLine();
+        Console.WriteLine();
         Console.WriteLine("Loan Decision Metrics");
         Console.WriteLine("=====================");
         foreach (var readModel in readModels) {
@@ -133,27 +135,27 @@ public class LendingDecider {
             return new LoanDecision(application.LoanAmount, application.AssetValue, application.CreditScore, decision, ltv);
         }
 
-        // switch (ltv) {
-        //     case < 60:
-        //         decision = application.CreditScore >= 750;
-        //         break;
-        //     case < 80:
-        //         decision = application.CreditScore >= 800;
-        //         break;
-        //     case < 90:
-        //         decision = application.CreditScore >= 900;
-        //         break;
-        //     case >= 90:
-        //         decision = false;
-        //         break;
-        //     default:
-        //         decision = false;
-        //         break;
-        //     }        
-        if (ltv < 60) { decision = application.CreditScore >= 750; }
-        else if (ltv < 80) { decision = application.CreditScore >= 800; }
-        else if (ltv < 90) { decision = application.CreditScore >= 900; }
-        else if (ltv >= 90) { decision = false; }
+        switch (ltv) {
+            case < 60:
+                decision = application.CreditScore >= 750;
+                break;
+            case < 80:
+                decision = application.CreditScore >= 800;
+                break;
+            case < 90:
+                decision = application.CreditScore >= 900;
+                break;
+            case >= 90:
+                decision = false;
+                break;
+            default:
+                decision = false;
+                break;
+            }        
+        // if (ltv < 60) { decision = application.CreditScore >= 750; }
+        // else if (ltv < 80) { decision = application.CreditScore >= 800; }
+        // else if (ltv < 90) { decision = application.CreditScore >= 900; }
+        // else if (ltv >= 90) { decision = false; }
         
         return new LoanDecision(application.LoanAmount, application.AssetValue, application.CreditScore, decision, ltv);
     }
