@@ -65,6 +65,7 @@ public record LoanApplication(int LoanAmount, int AssetValue, int CreditScore) :
 
 public class LendingDecider {
     public LoanDecision Decide(LoanApplication application) {
-        return new LoanDecision(application.LoanAmount, application.AssetValue, application.CreditScore, false, 0);
+        var ltv = application.LoanAmount / application.AssetValue * 100;
+        return new LoanDecision(application.LoanAmount, application.AssetValue, application.CreditScore, false, ltv);
     }
 }
